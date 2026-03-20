@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd apps/mobile-vite && npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd apps/mobile-vite && npm install && npm run build",
+  "outputDirectory": "apps/mobile-vite/dist",
   "installCommand": "npm install",
   "framework": "vite"
 }
