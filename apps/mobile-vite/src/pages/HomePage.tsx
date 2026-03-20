@@ -11,31 +11,39 @@ function HomePage() {
       </nav>
 
       <section className="hero">
-        <h1 className="title">探索你的五行能量</h1>
-        <p className="subtitle">输入出生信息，了解今日运势</p>
+        <h1 className="title">掌握命运的每一步</h1>
+        <p className="subtitle">基于传统八字理论，结合五行能量变化，为您提供精准的运势分析与生活决策建议。</p>
         <div className="input-group">
-          <input type="text" placeholder="出生年月" className="input" />
-          <input type="text" placeholder="出生时辰" className="input" />
+          <input type="text" placeholder="出生日期（如：1990-01-01）" className="input" />
+          <input type="text" placeholder="出生时辰（如：上午9点）" className="input" />
         </div>
-        <button className="hero-btn">立即测算</button>
+        <select className="input select">
+          <option>性别</option>
+          <option>男</option>
+          <option>女</option>
+        </select>
+        <button className="hero-btn">立即生成我的八字报告</button>
+        <p className="hint">首次使用免费，无需注册</p>
       </section>
 
-      <section className="quick-actions">
-        <Link to="/game/shake" className="action-btn">
-          <span className="icon">📱</span>
-          <span className="text">摇一摇</span>
+      <section className="features">
+        <Link to="/analysis" className="feature-card">
+          <h3>八字原局分析</h3>
+          <p>输入生日时辰，自动生成您的五行能量分布、日主强弱、十神关系图谱</p>
         </Link>
-        <Link to="/game/tarot" className="action-btn">
-          <span className="icon">🃏</span>
-          <span className="text">塔罗</span>
+        <Link to="/fortune" className="feature-card">
+          <h3>大运流年预测</h3>
+          <p>结合当前大运与流年，分析事业、财运、姻缘趋势，助您顺势而为</p>
         </Link>
-        <Link to="/game/ten-gods" className="action-btn">
-          <span className="icon">⚔️</span>
-          <span className="text">十神</span>
+        <Link to="/daily" className="feature-card">
+          <h3>每日运势指南</h3>
+          <p>获取今日穿衣颜色、宜忌事项、投资时机等生活化建议</p>
         </Link>
       </section>
 
       <section className="game-entrance">
+        <h2 className="section-title">🎮 吉运游戏厅</h2>
+        <p className="section-desc">选择你喜欢的小游戏</p>
         <Link to="/games" className="entrance-card">
           <span className="entrance-icon">🎲</span>
           <div className="entrance-info">
@@ -45,6 +53,10 @@ function HomePage() {
           <span className="arrow">→</span>
         </Link>
       </section>
+
+      <footer className="footer">
+        <p>© 2026 吉运助手. 保留所有权利.</p>
+      </footer>
 
       <nav className="bottom-nav">
         <Link to="/" className="nav-item active">
