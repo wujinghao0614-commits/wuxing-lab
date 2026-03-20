@@ -1,0 +1,164 @@
+// 主题变量
+$primary: #1A1A2E;
+$secondary: #16213E;
+$accent: #E94560;
+$text-primary: #FFFFFF;
+$text-secondary: #A0A0A0;
+
+// 五行颜色
+$metal: #FFD700;
+$wood: #00A86B;
+$water: #1E90FF;
+$fire: #FF4500;
+$earth: #DAA520;
+
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, $primary 0%, $secondary 100%);
+  padding: 40px 24px 120px;
+  box-sizing: border-box;
+}
+
+// 用户信息区域
+.user-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border: 3px solid $accent;
+  margin-right: 20px;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.name {
+  font-size: 28px;
+  font-weight: bold;
+  color: $text-primary;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.wuxing-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.wuxing-tag {
+  font-size: 20px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  color: #1A1A2E;
+  font-weight: bold;
+}
+
+// 能量仪表盘
+.energy-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.gauge-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  background: conic-gradient(
+    $accent 0deg 306deg,  // 85% = 306deg
+    rgba(255,255,255,0.1) 306deg 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.gauge-inner {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  background: $primary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score {
+  font-size: 56px;
+  font-weight: bold;
+  color: $accent;
+}
+
+.label {
+  font-size: 18px;
+  color: $text-secondary;
+}
+
+.gauge-title {
+  font-size: 20px;
+  color: $text-primary;
+}
+
+// 快捷入口
+.quick-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  
+  .text {
+    font-size: 16px;
+    color: $text-primary;
+  }
+}
+
+// 功能卡片
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid transparent;
+  
+  .card-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+  
+  .card-title {
+    font-size: 16px;
+    color: $text-primary;
+  }
+}
+
+// 底部占位（为导航栏留空间）
+.bottom-spacer {
+  height: 100px;
+}

@@ -1,0 +1,281 @@
+:root {
+  --primary: #8B5CF6;
+  --secondary: #F59E0B;
+  --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e6e6fa 100%);
+  --card-bg: #FFFFFF;
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+.app { min-height: 100vh; padding-bottom: 80px; }
+
+/* 顶部导航 */
+.navbar {
+  height: 60px;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo-icon { font-size: 24px; }
+.logo-text { font-size: 18px; font-weight: bold; color: var(--primary); }
+
+.nav-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 抽卡区域 */
+.draw-section { padding: 24px 16px; }
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* 牌堆 */
+.deck-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card-back {
+  width: 140px;
+  height: 200px;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.card-back:active { transform: scale(0.95); }
+
+.card-back.shuffling {
+  animation: shuffle 0.1s infinite;
+}
+
+@keyframes shuffle {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  50% { transform: translateX(10px) rotate(2deg); }
+}
+
+.card-pattern {
+  font-size: 48px;
+  color: rgba(255,255,255,0.3);
+}
+
+.draw-hint {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* 抽出的牌 */
+.drawn-card {
+  width: 140px;
+  height: 200px;
+  margin: 0 auto 24px;
+  perspective: 1000px;
+}
+
+.drawn-card .card-front {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transform: rotateY(180deg);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.drawn-card.revealed .card-front {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+
+.card-icon { font-size: 56px; }
+.card-name { 
+  font-size: 24px; 
+  font-weight: bold; 
+  color: white; 
+  margin-top: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* 结果卡片 */
+.result-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.keywords {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.keyword {
+  padding: 4px 12px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--primary);
+}
+
+.advice {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-primary);
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.lucky-info {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.lucky-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lucky-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.lucky-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.draw-again-btn {
+  width: 100%;
+  height: 48px;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 说明区域 */
+.info-section { padding: 24px 16px; }
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.info-icon { font-size: 24px; }
+.info-text { font-size: 14px; color: var(--text-secondary); }
+
+/* 底部导航 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.nav-item.active { opacity: 1; }
+.nav-item.active .nav-label { color: var(--primary); }
+
+.nav-icon { font-size: 20px; margin-bottom: 4px; }
+.nav-label { font-size: 12px; color: var(--text-secondary); }

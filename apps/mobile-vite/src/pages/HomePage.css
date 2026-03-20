@@ -1,0 +1,32 @@
+.home-page { min-height: 100vh; background: linear-gradient(180deg, #f0f9ff 0%, #e6e6fa 100%); padding-bottom: 80px; }
+.navbar { height: 60px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.logo-icon { font-size: 24px; }
+.logo-text { font-size: 18px; font-weight: bold; color: #8B5CF6; }
+.nav-btn { background: #8B5CF6; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; }
+
+.hero { padding: 24px 16px; }
+.title { font-size: 24px; font-weight: bold; margin-bottom: 8px; }
+.subtitle { font-size: 14px; color: #6B7280; margin-bottom: 20px; }
+.input-group { display: flex; gap: 12px; margin-bottom: 16px; }
+.input { flex: 1; height: 48px; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0 16px; font-size: 16px; }
+.hero-btn { width: 100%; height: 52px; background: #F59E0B; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; }
+
+.quick-actions { display: flex; justify-content: space-around; padding: 0 16px 24px; }
+.action-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
+.action-btn .icon { font-size: 32px; margin-bottom: 4px; }
+.action-btn .text { font-size: 14px; color: #6B7280; }
+
+.game-entrance { padding: 0 16px; }
+.entrance-card { display: flex; align-items: center; background: #fff; border-radius: 16px; padding: 16px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.entrance-icon { font-size: 36px; margin-right: 12px; }
+.entrance-info { flex: 1; }
+.entrance-info h3 { font-size: 16px; color: #1F2937; margin-bottom: 2px; }
+.entrance-info p { font-size: 12px; color: #6B7280; }
+.arrow { font-size: 20px; color: #D1D5DB; }
+
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: #fff; border-top: 1px solid #E5E7EB; display: flex; align-items: center; justify-content: space-around; }
+.nav-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; opacity: 0.6; text-decoration: none; }
+.nav-item.active { opacity: 1; }
+.nav-item.active .nav-label { color: #8B5CF6; }
+.nav-icon { font-size: 20px; margin-bottom: 4px; }
+.nav-label { font-size: 12px; color: #6B7280; }

@@ -1,0 +1,22 @@
+.game-page { min-height: 100vh; background: linear-gradient(180deg, #f0f9ff 0%, #e6e6fa 100%); padding-bottom: 80px; }
+.navbar { height: 60px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.back-btn { font-size: 24px; color: #8B5CF6; text-decoration: none; width: 40px; }
+.title { font-size: 18px; font-weight: bold; color: #1F2937; }
+
+.wheel-container { position: relative; width: 260px; height: 260px; margin: 24px auto; }
+.pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 24px; color: #F59E0B; z-index: 10; }
+.wheel { width: 100%; height: 100%; border-radius: 50%; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); border: 4px solid #fff; }
+.segment { position: absolute; width: 50%; height: 50%; left: 50%; top: 0; transform-origin: 0% 100%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+.result-card { margin: 16px; background: #fff; border: 2px solid #8B5CF6; border-radius: 12px; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.result-card span:first-child { font-size: 32px; }
+.result-card b { font-size: 24px; }
+
+.spin-btn { display: block; width: 180px; margin: 0 auto; height: 48px; background: linear-gradient(135deg, #F59E0B, #FF8C00); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 16px rgba(245,158,11,0.4); }
+
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: #fff; border-top: 1px solid #E5E7EB; display: flex; align-items: center; justify-content: space-around; }
+.nav-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; opacity: 0.6; text-decoration: none; }
+.nav-item.active { opacity: 1; }
+.nav-item.active .nav-label { color: #8B5CF6; }
+.nav-icon { font-size: 20px; margin-bottom: 4px; }
+.nav-label { font-size: 12px; color: #6B7280; }
