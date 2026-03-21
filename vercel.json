@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd apps/mobile-vite && npm install && npm run build && cp ../preview/zeri.html dist/",
+  "buildCommand": "cd apps/mobile-vite && npm install && npm run build",
   "outputDirectory": "apps/mobile-vite/dist",
   "installCommand": "npm install",
   "framework": "vite"
