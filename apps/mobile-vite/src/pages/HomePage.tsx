@@ -52,6 +52,14 @@ function HomePage() {
           </div>
           <span className="arrow">→</span>
         </Link>
+        <a href="/zeri.html" className="entrance-card" style={{display:'block', textDecoration:'none', color:'inherit'}}>
+          <span className="entrance-icon">📅</span>
+          <div className="entrance-info">
+            <h3>择日</h3>
+            <p>选择吉日良辰，做事顺顺利利</p>
+          </div>
+          <span className="arrow">→</span>
+        </a>
       </section>
 
       <footer className="footer">
