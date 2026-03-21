@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>择日 - 五行纪</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+        
+        .navbar { height: 60px; background: rgba(0,0,0,0.5); display: flex; align-items: center; padding: 0 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .back-btn { font-size: 24px; color: #fff; text-decoration: none; }
+        .title { font-size: 18px; font-weight: bold; color: #FFD700; margin-left: 12px; }
+        
+        .page { padding: 70px 12px 80px; }
+        
+        .card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .card-title { font-size: 14px; color: #FFD700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        
+        .date-input { display: flex; gap: 12px; margin-bottom: 16px; }
+        .date-input select { flex: 1; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff; font-size: 14px; }
+        
+        .result-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .result-row:last-child { border-bottom: none; }
+        .result-label { color: #888; font-size: 13px; }
+        .result-value { color: #FFD700; font-size: 13px; font-weight: bold; }
+        .result-value.good { color: #00A86B; }
+        .result-value.bad { color: #FF6B6B; }
+        
+        .good-tag { display: inline-block; background: rgba(0,168,107,0.2); color: #00A86B; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+        .bad-tag { display: inline-block; background: rgba(255,107,107,0.2); color: #FF6B6B; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+        
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: rgba(0,0,0,0.8); display: flex; justify-content: space-around; align-items: center; backdrop-filter: blur(10px); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 10px; }
+        .nav-item.active { color: #FFD700; }
+        .nav-icon { font-size: 20px; margin-bottom: 2px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="back-btn">←</a>
+        <span class="title">📅 择日</span>
+    </nav>
+    
+    <div class="page">
+        <!-- 日期选择 -->
+        <div class="card">
+            <div class="card-title">选择日期</div>
+            <div class="date-input">
+                <select id="yearSelect"></select>
+                <select id="monthSelect"></select>
+                <select id="daySelect"></select>
+            </div>
+            <div style="text-align: center;">
+                <button onclick="calculate()" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; border: none; padding: 12px 32px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;">开始择日</button>
+            </div>
+        </div>
+        
+        <!-- 基础信息 -->
+        <div class="card" id="resultCard" style="display: none;">
+            <div class="card-title">📋 基础信息</div>
+            <div class="result-row"><span class="result-label">干支</span><span class="result-value" id="ganzhi"></span></div>
+            <div class="result-row"><span class="result-label">五行</span><span class="result-value" id="wuxing"></span></div>
+            <div class="result-row"><span class="result-label">冲煞</span><span class="result-value" id="chongsha"></span></div>
+            <div class="result-row"><span class="result-label">彭祖百忌</span><span class="result-value" id="pengzu"></span></div>
+        </div>
+        
+        <!-- 十二建星 -->
+        <div class="card" id="jianxingCard" style="display: none;">
+            <div class="card-title">⭐ 十二建星</div>
+            <div class="result-row"><span class="result-label">建星</span><span class="result-value" id="jianxing"></span></div>
+            <div class="result-row"><span class="result-label">解释</span><span class="result-value" id="jianxingDesc"></span></div>
+        </div>
+        
+        <!-- 吉凶方位 -->
+        <div class="card" id="fangweiCard" style="display: none;">
+            <div class="card-title">🧭 吉凶方位</div>
+            <div class="result-row"><span class="result-label">喜神</span><span class="result-value good" id="xishen"></span></div>
+            <div class="result-row"><span class="result-label">福神</span><span class="result-value good" id="fushen"></span></div>
+            <div class="result-row"><span class="result-label">财神</span><span class="result-value good" id="caishen"></span></div>
+            <div class="result-row"><span class="result-label">贵神</span><span class="result-value good" id="guishen"></span></div>
+            <div class="result-row"><span class="result-label">煞神</span><span class="result-value bad" id="shashen"></span></div>
+        </div>
+        
+        <!-- 宜 -->
+        <div class="card" id="yiCard" style="display: none;">
+            <div class="card-title">✅ 宜</div>
+            <div id="yiList"></div>
+        </div>
+        
+        <!-- 忌 -->
+        <div class="card" id="jiCard" style="display: none;">
+            <div class="card-title">❌ 忌</div>
+            <div id="jiList"></div>
+        </div>
+        
+        <!-- 吉时 -->
+        <div class="card" id="jishiCard" style="display: none;">
+            <div class="card-title">⏰ 吉时</div>
+            <div id="jishiList"></div>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>报告</span>
+        </a>
+        <a href="games/game-list.html" class="nav-item">
+            <span class="nav-icon">🎮</span>
+            <span>游戏</span>
+        </a>
+        <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>我的</span>
+        </div>
+    </nav>
+    
+    <script>
+        const TianGan = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+        const DiZhi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+        const jaZi = ["甲子","乙丑","丙寅","丁卯","戊辰","己巳","庚午","辛未","壬申","癸酉","甲戌","乙亥","丙子","丁丑","戊寅","己卯","庚辰","辛巳","壬午","癸未","甲申","乙酉","丙戌","丁亥","戊子","己丑","庚寅","辛卯","壬辰","癸巳","甲午","乙未","丙申","丁酉","戊戌","己亥","庚子","辛丑","壬寅","癸卯","甲辰","乙巳","丙午","丁未","戊申","己酉","庚戌","辛亥","壬子","癸丑","甲寅","乙卯","丙辰","丁巳","戊午","己未","庚申","辛酉","壬戌","癸亥"];
+        const wuxing = ["木","火","土","金","水"];
+        
+        // 初始化日期选择
+        function initDateSelect() {
+            const yearSelect = document.getElementById('yearSelect');
+            const monthSelect = document.getElementById('monthSelect');
+            const daySelect = document.getElementById('daySelect');
+            
+            const now = new Date();
+            for (let y = 2020; y <= 2040; y++) {
+                yearSelect.options[yearSelect.options.length] = new Option(y + '年', y);
+            }
+            for (let m = 1; m <= 12; m++) {
+                monthSelect.options[monthSelect.options.length] = new Option(m + '月', m);
+            }
+            for (let d = 1; d <= 31; d++) {
+                daySelect.options[daySelect.options.length] = new Option(d + '日', d);
+            }
+            
+            yearSelect.value = now.getFullYear();
+            monthSelect.value = now.getMonth() + 1;
+            daySelect.value = now.getDate();
+        }
+        
+        function getGanZhi(year, month, day) {
+            const baseDate = new Date(2020, 0, 1); // 庚子年正月初一
+            const targetDate = new Date(year, month - 1, day);
+            const diffDays = Math.floor((targetDate - baseDate) / 86400000);
+            const gzIndex = (diffDays + 43) % 60;
+            return jaZi[gzIndex >= 0 ? gzIndex : gzIndex + 60];
+        }
+        
+        function getWuxing(gan) {
+            const idx = TianGan.indexOf(gan);
+            if (idx === -1) return "--";
+            return wuxing[Math.floor(idx / 2)];
+        }
+        
+        function getJianXing(ganzhi) {
+            const jianxing = ["建","除","满","平","定","执","破","危","成","收","开","闭"];
+            const idx = DiZhi.indexOf(ganzhi.charAt(1));
+            return jianxing[idx];
+        }
+        
+        function getJianXingDesc(jx) {
+            const desc = {
+                "建":"建者，健也。宜开业、造屋、种植、纳财。","除":"除者，除旧布新。宜祭祀、祈福、嫁娶。","满":"满者，丰盈。宜造屋、仓储、开业。","平":"平者，和也。宜修造、竖柱。","定":"定者，固定。宜祭祀、祈福、嫁娶。","执":"执者，固执。宜造屋、种植。","破":"破者，冲破。忌开业、嫁娶。","危":"危者，危险。忌开业、嫁娶。","成":"成者，成功。宜开业、嫁娶、动土。","收":"收者，收成。宜种植、纳财。","开":"开者，开放。宜开业、动土。","闭":"闭者，关闭。宜修造、竖柱。"
+            };
+            return desc[jx] || "";
+        }
+        
+        function calculate() {
+            const year = parseInt(document.getElementById('yearSelect').value);
+            const month = parseInt(document.getElementById('monthSelect').value);
+            const day = parseInt(document.getElementById('daySelect').value);
+            
+            const ganzhi = getGanZhi(year, month, day);
+            const gan = ganzhi.charAt(0);
+            const zhi = ganzhi.charAt(1);
+            
+            // 显示结果
+            document.getElementById('resultCard').style.display = 'block';
+            document.getElementById('ganzhi').textContent = ganzhi + ' (' + getWuxing(gan) + ')';
+            
+            // 彭祖百忌
+            const pengzu = {"甲":"甲不开仓","乙":"乙不栽植","丙":"丙不修灶","丁":"丁不剃头","戊":"戊不受田","己":"己不破券","庚":"庚不经络","辛":"辛不合酱","壬":"壬不汲水","癸":"癸不词讼","子":"子不问卜","丑":"丑不冠带","寅":"寅不祭祀","卯":"卯不穿井","辰":"辰不哭泣","巳":"巳不远行","未":"未不服药","午":"午不苫盖","申":"申不安床","酉":"酉不会客","戌":"戌不吃犬","亥":"亥不嫁娶"};
+            document.getElementById('pengzu').textContent = (pengzu[gan] || "") + " " + (pengzu[zhi] || "");
+            
+            // 冲煞
+            const chong = {"子":"午","丑":"未","寅":"申","卯":"酉","辰":"戌","巳":"亥","午":"子","未":"丑","申":"寅","酉":"卯","戌":"辰","亥":"巳"};
+            const sha = {"子":"北","丑":"东北","寅":"东北","卯":"东","辰":"东南","巳":"东南","午":"南","未":"西南","申":"西南","酉":"西","戌":"西北","亥":"西北"};
+            document.getElementById('chongsha').textContent = "冲" + (chong[zhi] || "") + " (" + (sha[zhi] || "") + ")";
+            
+            // 十二建星
+            const jx = getJianXing(ganzhi);
+            document.getElementById('jianxingCard').style.display = 'block';
+            document.getElementById('jianxing').textContent = jx;
+            document.getElementById('jianxingDesc').textContent = getJianXingDesc(jx);
+            
+            // 吉凶方位
+            const xishen = ["东北","东","东南","南","西南","西","西北","北"];
+            const fushen = ["西南","西北","北","东北","东","东南","南","西"];
+            const caishen = ["东北","东","南","东南","西北","西","西南","北"];
+            const guishen = ["西南","西北","北","东北","东","东南","南","西"];
+            const shashen = ["申","酉","戌","亥","子","丑","寅","卯"];
+            
+            const diZhiIdx = DiZhi.indexOf(zhi);
+            document.getElementById('fangweiCard').style.display = 'block';
+            document.getElementById('xishen').textContent = xishen[diZhiIdx % 8];
+            document.getElementById('fushen').textContent = fushen[diZhiIdx % 8];
+            document.getElementById('caishen').textContent = caishen[diZhiIdx % 8];
+            document.getElementById('guishen').textContent = guishen[diZhiIdx % 8];
+            document.getElementById('shashen').textContent = shashen[diZhiIdx % 8];
+            
+            // 宜忌
+            const yiArr = ["祭祀","祈福","嫁娶","开业","动土","修造","竖柱","上梁","纳财","纳畜","入宅","移徙","安床","解除","求医","治病"];
+            const jiArr = ["嫁娶","动土","破土","安葬","修造","上梁","入宅","移徙","开市","交易","立券","纳财"];
+            const yiList = document.getElementById('yiList');
+            const jiList = document.getElementById('jiList');
+            
+            yiList.innerHTML = "";
+            jiList.innerHTML = "";
+            
+            yiArr.forEach((item, i) => {
+                if (i % 2 === diZhiIdx % 3) {
+                    yiList.innerHTML += '<span class="good-tag">' + item + '</span>';
+                }
+            });
+            jiArr.forEach((item, i) => {
+                if (i % 2 === (diZhiIdx + 1) % 3) {
+                    jiList.innerHTML += '<span class="bad-tag">' + item + '</span>';
+                }
+            });
+            
+            document.getElementById('yiCard').style.display = yiList.innerHTML ? 'block' : 'none';
+            document.getElementById('jiCard').style.display = jiList.innerHTML ? 'block' : 'none';
+            
+            // 吉时
+            const jishiArr = ["子时(23-1)","丑时(1-3)","寅时(3-5)","卯时(5-7)","辰时(7-9)","巳时(9-11)","午时(11-13)","未时(13-15)","申时(15-17)","酉时(17-19)","戌时(19-21)","亥时(21-23)"];
+            const jishiList = document.getElementById('jishiList');
+            jishiList.innerHTML = "";
+            const goodHours = [(diZhiIdx + 1) % 12, (diZhiIdx + 3) % 12, (diZhiIdx + 5) % 12, (diZhiIdx + 7) % 12];
+            goodHours.forEach(h => {
+                jishiList.innerHTML += '<span class="good-tag">' + jishiArr[h] + '</span>';
+            });
+            document.getElementById('jishiCard').style.display = 'block';
+        }
+        
+        initDateSelect();
+    </script>
+</body>
+</html>
