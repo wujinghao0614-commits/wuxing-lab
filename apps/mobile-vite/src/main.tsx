@@ -10,6 +10,7 @@ import WheelGame from './pages/WheelGame'
 import MatchGame from './pages/MatchGame'
 import DrawGame from './pages/DrawGame'
 import ProfilePage from './pages/ProfilePage'
+import ZeriPage from './pages/ZeriPage'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/game/match" element={<MatchGame />} />
         <Route path="/game/draw" element={<DrawGame />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/zeri" element={<ZeriPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
