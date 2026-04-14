@@ -1,0 +1,57 @@
+.weather-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.weather-badge.loading {
+  background: #94a3b8;
+}
+
+.weather-badge.error {
+  background: #ef4444;
+}
+
+.weather-icon {
+  font-size: 16px;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.weather-desc {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.weather-advice {
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+  border-left: 1px solid rgba(255,255,255,0.3);
+}
+
+.advice-color {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.advice-desc {
+  font-size: 9px;
+  opacity: 0.8;
+}

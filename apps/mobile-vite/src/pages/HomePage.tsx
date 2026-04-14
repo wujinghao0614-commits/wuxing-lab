@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { WeatherBadge } from '../components/WeatherBadge'
 import './HomePage.css'
 
 function HomePage() {
@@ -7,7 +8,7 @@ function HomePage() {
       <nav className="navbar">
         <span className="logo-icon">🔮</span>
         <span className="logo-text">吉运助手</span>
-        <button className="nav-btn">免费体验</button>
+        <WeatherBadge />
       </nav>
 
       <section className="hero">
